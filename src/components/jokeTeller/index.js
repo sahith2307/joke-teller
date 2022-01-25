@@ -11,6 +11,14 @@ export default function JokeTeller(props) {
     typeDataPro,
     rangeData,
   } = props;
+  const categoryList = [
+    "Christmas",
+    "Spooky",
+    "Programming",
+    "Pun",
+    "Dark",
+    "Misc",
+  ];
   const namesChange = ["single", "twopart"];
   const initialValue = "Any";
   const [categoryType, setCategoryType] = useState(initialValue);
@@ -203,7 +211,7 @@ export default function JokeTeller(props) {
           fetchedData.map((each) => (
             <li key={each}>
               <input
-                data-testid={each}
+                data-testid={`${each}-id`}
                 type="checkbox"
                 id={each}
                 value={each}
@@ -222,6 +230,7 @@ export default function JokeTeller(props) {
       <select
         name="languages"
         id="languages"
+        data-testid="languages"
         value={selectedLang}
         onChange={(e) => {
           setLang(e.target.value);
@@ -241,12 +250,12 @@ export default function JokeTeller(props) {
 
   const getFlags = () => {
     return (
-      <ul className="options-container field-cont">
+      <ul id="ul" className="options-container field-cont">
         <li>(optional)</li>
         {flagsData &&
           flagsData.map((each) => {
             return (
-              <li key={each}>
+              <li key={each} data-testid={each} id={each}>
                 <input type="checkbox" value={each} onChange={setFlageValues} />
                 <label>{each}</label>
               </li>
@@ -305,6 +314,7 @@ export default function JokeTeller(props) {
             <li key={each}>
               <input
                 id={each}
+                data-testid={each}
                 type="checkbox"
                 value={each}
                 onChange={setTypeValues}
@@ -390,6 +400,7 @@ export default function JokeTeller(props) {
             <div className={`field-cont ${catBorder}`}>
               <input
                 id="any-id"
+                data-testid="any"
                 type="radio"
                 name="category"
                 value="Any"
@@ -400,6 +411,7 @@ export default function JokeTeller(props) {
               <div className="options-container">
                 <input
                   id="custom-Id"
+                  data-testid="custom"
                   type="radio"
                   name="category"
                   value="Custom"
@@ -441,6 +453,7 @@ export default function JokeTeller(props) {
             </h3>
             <div className="field-cont">
               <input
+                data-testid="contains"
                 id="contains"
                 type="text"
                 value={search}
@@ -460,6 +473,7 @@ export default function JokeTeller(props) {
               <label>From:</label>
               <input
                 id="lowRange"
+                data-testid="lowRange"
                 type="number"
                 min={Math.min(...rangeTaken)}
                 max={Math.max(...rangeTaken)}
@@ -471,6 +485,7 @@ export default function JokeTeller(props) {
               <label>to</label>{" "}
               <input
                 id="highRange"
+                data-testid="highRange"
                 type="number"
                 min={Math.min(...rangeTaken)}
                 max={Math.max(...rangeTaken)}
@@ -488,6 +503,7 @@ export default function JokeTeller(props) {
             <div className="field-cont">
               <input
                 id="amount"
+                data-testid="amount"
                 type="number"
                 min={1}
                 max={10}
@@ -500,7 +516,10 @@ export default function JokeTeller(props) {
           </div>
           <div className="field-cont">
             <label>URL:</label>
-            <h2 id="api"> {api}</h2>
+            <h2 id="api" data-testid="api">
+              {" "}
+              {api}
+            </h2>
             <div>
               <button type="button">clearForm</button>
               <button type="button" onClick={sendRequest}>
